@@ -46,10 +46,12 @@ public class DecisionActivity extends AppCompatActivity {
 
                     startActivity(new Intent(DecisionActivity.this,SetUpUsernameActivity.class));
                     progressDialog.dismiss();
+                    finish();
                 }
                 else {
                     startActivity(new Intent(DecisionActivity.this,HomeActivity.class));
                     progressDialog.dismiss();
+                    finish();
                 }
             }
 

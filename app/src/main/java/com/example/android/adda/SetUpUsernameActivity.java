@@ -54,6 +54,7 @@ public class SetUpUsernameActivity extends AppCompatActivity {
                     String a ="#"+editUsername.getText().toString().trim();
                     setUsername(a,firebaseAuth.getCurrentUser().getUid().toString());
                     startActivity(new Intent(SetUpUsernameActivity.this,HomeActivity.class));
+                    finish();
                 }
             }
         });

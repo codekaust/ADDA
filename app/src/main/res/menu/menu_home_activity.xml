@@ -6,10 +6,6 @@
         android:id="@+id/id_logout_HomeActy"
         app:showAsAction="never"/>
 
-    <item android:title="Change Username"
-        android:id="@+id/id_changeUsername_HomeActy"
-        app:showAsAction="never"/>
-
 
     <item android:id="@+id/id_addGroup_HomeActy"
         app:showAsAction="always"

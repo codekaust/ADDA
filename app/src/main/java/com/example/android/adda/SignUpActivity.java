@@ -95,10 +95,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                                     if(task.isSuccessful()){
                                         startActivity(new Intent(SignUpActivity.this,SetUpUsernameActivity.class));
+                                        finish();
                                     }
                                     else{
                                         Toast.makeText(SignUpActivity.this, "Couldn't SignIn.\nPlease try again.", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(SignUpActivity.this,SignInActivity.class));
+                                        finish();
                                     }
                                 }
                             });
@@ -117,6 +119,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (v==proceedToSignInActivityTextView){
             Intent intent=new Intent(SignUpActivity.this,SignInActivity.class);
             startActivity(intent);
+            finish();
         }
 
     }

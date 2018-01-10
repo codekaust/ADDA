@@ -152,6 +152,7 @@ public class HomeActivity extends AppCompatActivity {
                                 clickedGroup=textView.getText().toString();
                                 clickedGroupGroup="OtherGroups";
                                 startActivity(new Intent(HomeActivity.this,PostsActivity.class));
+                                finish();
                             }
                         });
 
@@ -206,10 +207,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 }
             });
-
-            if(id==R.id.id_changeUsername_HomeActy){
-                startActivity(new Intent(HomeActivity.this,SetUpUsernameActivity.class));
-            }
         }
 
         return super.onOptionsItemSelected(item);

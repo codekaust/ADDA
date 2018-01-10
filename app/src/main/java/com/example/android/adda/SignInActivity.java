@@ -74,6 +74,7 @@ public class SignInActivity extends AppCompatActivity  implements View.OnClickLi
                         if(task.isSuccessful()){
                             textView.setText("");
                             startActivity(new Intent(SignInActivity.this,DecisionActivity.class));
+                            finish();
                         }
                         else{
                             textView.setText("Couldn't Sign In.\nPlease try again.");

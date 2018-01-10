@@ -232,14 +232,17 @@ public class PostsActivity extends AppCompatActivity {
         if (id == R.id.id_logout_PostActy) {
             firebaseAuth.signOut();
             startActivity(new Intent(PostsActivity.this, MainActivity.class));
+            finish();
         }
 
         if (id == R.id.id_changeUsername_PostActy) {
             startActivity(new Intent(PostsActivity.this, SetUpUsernameActivity.class));
+            finish();
         }
 
         if (id == R.id.id_goToHomeButton_PostsActy) {
             startActivity((new Intent(PostsActivity.this, HomeActivity.class)));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
