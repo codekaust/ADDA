@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.adda.SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/id_editEmail_SignUpActivity"
+            android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Enter Email" />
+
+        <EditText
+            android:id="@+id/id_editPassword_SignUpActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:password="true"
+            android:hint="Set Password" />
+
+        <Button
+            android:id="@+id/id_buttonRegister_SignUpActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:text="REGISTER User" />
+
+        <TextView
+            android:id="@+id/id_textView_SignUpActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <TextView
+            android:id="@+id/id_proceedToSignInTextView_SignUpActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Already a user? Proceed to Sign In..."
+            android:textColor="@color/link_color"
+            android:layout_marginBottom="100dp"/>
+    </LinearLayout>
+</ScrollView>

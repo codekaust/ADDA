@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.android.adda.HomeActivity"
+    tools:showIn="@layout/activity_home">
+
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="\nHey!\n What would you like to read now..."
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <TextView
+
+        android:id="@+id/id_generalInterests_Home_Activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/textview_home_activity"
+        android:drawableRight="@mipmap/ic_keyboard_arrow_right_black_24dp"
+        android:padding="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="GENERAL INTERESTS"
+        android:textColor="@color/light_black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/id_otherGroups_Home_Activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/textview_home_activity"
+        android:drawableRight="@mipmap/ic_keyboard_arrow_right_black_24dp"
+        android:padding="15dp"
+        android:text="OTHER GROUPS"
+        android:textColor="@color/light_black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

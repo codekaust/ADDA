@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:text="Comments"
+            android:textColor="@color/white" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_listComments_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/id_addCommentEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/editshape_comment_box"
+                android:hint="Add Comment"
+                android:padding="10dp" />
+
+            <ImageButton
+                android:id="@+id/id_sendImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:src="@mipmap/ic_send_black_24dp"
+                android:tint="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

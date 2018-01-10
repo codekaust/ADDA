@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.adda">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon_adda"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon_adda"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppFirstPageTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:label="Sign In" />
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Sign Up" />
+        <activity
+            android:name=".DecisionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".SetUpUsernameActivity"
+            android:label="Set Up Username"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="Home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PostsActivity"
+            android:label="Posts"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

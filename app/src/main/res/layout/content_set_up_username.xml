@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.android.adda.SetUpUsernameActivity"
+    tools:showIn="@layout/activity_set_up_username">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/generalPadding">
+
+        <TextView
+            android:id="@+id/id_textView_SetUpUsernameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="Choose an username unrelatable to your identity.\nThis username will visible in general in your posts.\n\nUsername may be changed anytime !"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <EditText
+            android:inputType="textEmailAddress"
+            android:id="@+id/id_editUsername_SetUpUsernameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/id_textView_SetUpUsernameActivity"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_shape"
+            android:gravity="center"
+            android:hint="Set Username"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/light_black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/id_displayTextView_SetUpUsernameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/id_editUsername_SetUpUsernameActivity"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#FF0000" />
+
+
+        <TextView
+            android:id="@+id/id_proceedTextView_SetUpUsernameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/textview_shapeone"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="PROCEED"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
