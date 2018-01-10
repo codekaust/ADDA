@@ -8,17 +8,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:paddingBottom="15dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:text="ADD NEW POST"
-            android:textColor="@color/white" />
+            android:hint="which group"
+            android:id="@+id/id_whichGroupTextGrp"
+            android:gravity="right"
+            android:padding="5dp"/>
 
         <EditText
             android:id="@+id/id_edit_new_postHeading"
@@ -30,6 +29,7 @@
             android:background="@drawable/edit_newpost"
             android:gravity="start"
             android:hint="Heading"
+            android:inputType="textEmailAddress"
             android:padding="10dp" />
 
         <ImageView
@@ -53,14 +53,15 @@
             android:background="@drawable/edit_newpost"
             android:gravity="start"
             android:hint="Add post text here."
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/id_addPost_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/textview_shapeone"

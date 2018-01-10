@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/icon_adda"
+        android:background="@drawable/wall_adda"
         android:gravity="center"
-        android:paddingTop="400dp"
+        android:paddingTop="360dp"
         android:text="@string/app_sutra"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 
     <TextView

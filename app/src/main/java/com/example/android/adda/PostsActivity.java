@@ -14,9 +14,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.BoringLayout;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -60,6 +62,7 @@ public class PostsActivity extends AppCompatActivity {
     private RecyclerView recyclerList;
     private View commentsView;
     private RecyclerView recyclerViewComments;
+    private TextView whichGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +82,26 @@ public class PostsActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(PostsActivity.this);
         builder.setView(newPostView);
         dialog = builder.create();
+        whichGroup = (TextView) newPostView.findViewById(R.id.id_whichGroupTextGrp);
 
         builderForComments = new AlertDialog.Builder(PostsActivity.this);
 
         editNewPostHeading = (EditText) newPostView.findViewById(R.id.id_edit_new_postHeading);
         editNewPostText = (EditText) newPostView.findViewById(R.id.id_editNewPostText);
+        /*editNewPostText.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View view, MotionEvent event) {
+                if (view.getId() == R.id.id_editNewPostText) {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                        case MotionEvent.ACTION_UP:
+                            view.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
+                }
+                return false;
+            }
+        });*/
         addPost_TextView = (TextView) newPostView.findViewById(R.id.id_addPost_textView);
         newPostImage = (ImageView) newPostView.findViewById(R.id.id_imageNewPost);
 
@@ -99,6 +117,8 @@ public class PostsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                whichGroup.setText(HomeActivity.clickedGroup);
+                dialog.setCustomTitle(getLayoutInflater().inflate(R.layout.title_for_dialog, null));
                 dialog.show();
             }
         });
@@ -288,6 +308,7 @@ public class PostsActivity extends AppCompatActivity {
                 final TextView postId = (TextView) viewHolder.itemView.findViewById(R.id.id_postIdStorageTextView);
                 final TextView totalLikes = (TextView) viewHolder.itemView.findViewById(R.id.id_totalLikes);
                 final TextView totalComments = (TextView) viewHolder.itemView.findViewById(R.id.id_totalNoOfComments);
+                final LikeButton likeButton=(LikeButton)viewHolder.itemView.findViewById(R.id.id_likeStar_button);
 
                 viewHolder.setOnClickListener(new PostsListViewHolder.ClickListener() {
                     @Override
@@ -301,14 +322,24 @@ public class PostsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                DatabaseReference datref = databaseReference.child(postId.getText().toString()).child("comments").push();
-                                datref.child("userId").setValue(firebaseAuth.getCurrentUser().getUid().toString());
-                                datref.child("commentBody").setValue(editComment.getText().toString());
+                                if (!TextUtils.isEmpty(editComment.getText().toString())) {
+                                    DatabaseReference datref = databaseReference.child(postId.getText().toString()).child("comments").push();
+                                    datref.child("userId").setValue(firebaseAuth.getCurrentUser().getUid().toString());
+                                    datref.child("commentBody").setValue(editComment.getText().toString());
 
-                                editComment.setText(null);
+                                    int j = Integer.parseInt(totalComments.getText().toString());
+                                    databaseReference.child(postId.getText().toString()).child("totalComments").setValue(Integer.toString(j + 1));
 
-                                int j = Integer.parseInt(totalComments.getText().toString());
-                                databaseReference.child(postId.getText().toString()).child("totalComments").setValue(Integer.toString(j + 1));
+                                    editComment.setText(null);
+
+                                    dialogComments.dismiss();
+                                }
+
+                                else {
+                                    Snackbar.make(commentsView, "Please fill comment field.", Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                }
+
                             }
                         });
 
@@ -346,19 +377,34 @@ public class PostsActivity extends AppCompatActivity {
 
                     public void onLiked(View view, int position) {
 
+                        likeButton.setEnabled(false);
+
                         databaseReference.child(postId.getText().toString()).child("usersWhichLiked").child(firebaseAuth.getCurrentUser().getUid()).setValue("true");
+
                         int i = Integer.parseInt(totalLikes.getText().toString());
 
-                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i + 1)));
+                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i + 1))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                likeButton.setEnabled(true);
+                            }
+                        });
                     }
 
                     public void onUnliked(View view, int position) {
+
+                        likeButton.setEnabled(false);
 
                         databaseReference.child(postId.getText().toString()).child("usersWhichLiked").child(firebaseAuth.getCurrentUser().getUid()).setValue("false");
 
                         int i = Integer.parseInt(totalLikes.getText().toString());
 
-                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i - 1)));
+                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i - 1))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                likeButton.setEnabled(true);
+                            }
+                        });
                     }
                 });
 

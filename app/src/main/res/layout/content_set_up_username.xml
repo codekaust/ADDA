@@ -32,7 +32,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_shape"
             android:gravity="center"
-            android:hint="Set Username"
+            android:hint="Set a Username"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/light_black"
             android:textSize="15sp" />
