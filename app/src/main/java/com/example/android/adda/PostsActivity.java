@@ -88,7 +88,7 @@ public class PostsActivity extends AppCompatActivity {
 
         editNewPostHeading = (EditText) newPostView.findViewById(R.id.id_edit_new_postHeading);
         editNewPostText = (EditText) newPostView.findViewById(R.id.id_editNewPostText);
-        /*editNewPostText.setOnTouchListener(new View.OnTouchListener() {
+        editNewPostText.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View view, MotionEvent event) {
                 if (view.getId() == R.id.id_editNewPostText) {
@@ -101,7 +101,7 @@ public class PostsActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });*/
+        });
         addPost_TextView = (TextView) newPostView.findViewById(R.id.id_addPost_textView);
         newPostImage = (ImageView) newPostView.findViewById(R.id.id_imageNewPost);
 
