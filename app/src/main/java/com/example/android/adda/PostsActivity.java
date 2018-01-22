@@ -41,7 +41,6 @@ import com.google.firebase.storage.UploadTask;
 import com.like.LikeButton;
 
 import java.util.Map;
-import java.util.Set;
 
 public class PostsActivity extends AppCompatActivity {
 
@@ -421,7 +420,12 @@ public class PostsActivity extends AppCompatActivity {
                             }
                         };
 
-                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i - 1))).addOnSuccessListener(listener);
+                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i - 1))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                likeButton.setEnabled(true);
+                            }
+                        });
                     }
                 });
 

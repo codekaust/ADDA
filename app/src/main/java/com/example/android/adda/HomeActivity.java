@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView oGtextView;
     private RecyclerView generalListrecyclerView;
     private RecyclerView otherListrecyclerView;
+    private View mGenGrpPopOutView;
+    private View mOthrPopOutView;
 
     public static String clickedGroup;
     public static String clickedGroupGroup;
@@ -53,62 +56,29 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        databaseReference1=FirebaseDatabase.getInstance().getReference().child("GeneralInterestList");
-        databaseReference2=FirebaseDatabase.getInstance().getReference().child("OtherGroupsList");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference().child("GeneralInterestList");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference().child("OtherGroupsList");
 
-        gItextView=(TextView)findViewById(R.id.id_generalInterests_Home_Activity);
-        oGtextView=(TextView)findViewById(R.id.id_otherGroups_Home_Activity);
+        gItextView = (TextView) findViewById(R.id.id_generalInterests_Home_Activity);
+        oGtextView = (TextView) findViewById(R.id.id_otherGroups_Home_Activity);
+
+        mGenGrpPopOutView = getLayoutInflater().inflate(R.layout.general_interests_popup, null);
+        mOthrPopOutView = getLayoutInflater().inflate(R.layout.other_groups_popup, null);
+
+        generalListrecyclerView = (RecyclerView) mGenGrpPopOutView.findViewById(R.id.id_general_groupNameList_RecyclerView);
+        generalListrecyclerView.setHasFixedSize(true);
+        generalListrecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+
+        otherListrecyclerView = (RecyclerView) mOthrPopOutView.findViewById(R.id.id_other_groupNameList_RecyclerView);
+        otherListrecyclerView.setHasFixedSize(true);
+        otherListrecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
 
         gItextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder =new AlertDialog.Builder(HomeActivity.this);
-                View mView=getLayoutInflater().inflate(R.layout.general_interests_popup,null);
-
-                generalListrecyclerView=(RecyclerView)mView.findViewById(R.id.id_general_groupNameList_RecyclerView);
-                generalListrecyclerView.setHasFixedSize(true);
-                generalListrecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
-
-
-                FirebaseRecyclerAdapter<GroupListRowModelClass,GroupNameListViewHolder> FBRA=new FirebaseRecyclerAdapter<GroupListRowModelClass, GroupNameListViewHolder>(
-
-                        GroupListRowModelClass.class,
-                        R.layout.row_list_select_grp_layout,
-                        GroupNameListViewHolder.class,
-                        databaseReference1
-
-                ) {
-
-                    @Override
-                    protected void populateViewHolder(GroupNameListViewHolder viewHolder, GroupListRowModelClass model, int position) {
-
-                        Log.v("HomeActivity",model.getGroupName());
-                        viewHolder.setGroupName(model.getGroupName());
-
-                    }
-
-                    @Override
-                    public GroupNameListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                        GroupNameListViewHolder viewHolder=super.onCreateViewHolder(parent, viewType);
-
-                        viewHolder.setOnClickListener(new GroupNameListViewHolder.ClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                TextView textView=(TextView)view.findViewById(R.id.id_groupName_textView);
-                                clickedGroup=textView.getText().toString();
-                                clickedGroupGroup="GeneralInterests";
-                                startActivity(new Intent(HomeActivity.this,PostsActivity.class));
-                                Log.v("HomeActivity","Viewholder clicked");
-                            }
-                        });
-
-                        return viewHolder;
-                    }
-                };
-
-                generalListrecyclerView.setAdapter(FBRA);
-                builder.setView(mView);
-                AlertDialog dialog=builder.create();
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setView(mGenGrpPopOutView);
+                AlertDialog dialog = builder.create();
                 dialog.show();
             }
         });
@@ -116,61 +86,99 @@ public class HomeActivity extends AppCompatActivity {
         oGtextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder =new AlertDialog.Builder(HomeActivity.this);
-                View mView=getLayoutInflater().inflate(R.layout.other_groups_popup,null);
-                builder.setView(mView);
-                AlertDialog dialog=builder.create();
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setView(mOthrPopOutView);
+                AlertDialog dialog = builder.create();
                 dialog.show();
-
-                otherListrecyclerView=(RecyclerView)mView.findViewById(R.id.id_other_groupNameList_RecyclerView);
-                otherListrecyclerView.setHasFixedSize(true);
-                otherListrecyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
-
-                FirebaseRecyclerAdapter<GroupListRowModelClass,GroupNameListViewHolder> FBRA=new FirebaseRecyclerAdapter<GroupListRowModelClass, GroupNameListViewHolder>(
-
-                        GroupListRowModelClass.class,
-                        R.layout.row_list_select_grp_layout,
-                        GroupNameListViewHolder.class,
-                        databaseReference2
-
-                ) {
-                    @Override
-                    protected void populateViewHolder(GroupNameListViewHolder viewHolder, GroupListRowModelClass model, int position) {
-
-                        viewHolder.setGroupName(model.getGroupName());
-
-                    }
-
-                    @Override
-                    public GroupNameListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                        GroupNameListViewHolder viewHolder=super.onCreateViewHolder(parent, viewType);
-
-                        viewHolder.setOnClickListener(new GroupNameListViewHolder.ClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                TextView textView=(TextView)view.findViewById(R.id.id_groupName_textView);
-                                clickedGroup=textView.getText().toString();
-                                clickedGroupGroup="OtherGroups";
-                                startActivity(new Intent(HomeActivity.this,PostsActivity.class));
-                                finish();
-                            }
-                        });
-
-                        return viewHolder;
-                    }
-                };
-
-                otherListrecyclerView.setAdapter(FBRA);
-
             }
         });
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter<GroupListRowModelClass, GroupNameListViewHolder> FBRAGIG = new FirebaseRecyclerAdapter<GroupListRowModelClass, GroupNameListViewHolder>(
+
+                GroupListRowModelClass.class,
+                R.layout.row_list_select_grp_layout,
+                GroupNameListViewHolder.class,
+                databaseReference1
+
+        ) {
+
+            @Override
+            protected void populateViewHolder(GroupNameListViewHolder viewHolder, GroupListRowModelClass model, int position) {
+
+                Log.v("HomeActivity", model.getGroupName());
+                viewHolder.setGroupName(model.getGroupName());
+
+            }
+
+            @Override
+            public GroupNameListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                GroupNameListViewHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+
+                viewHolder.setOnClickListener(new GroupNameListViewHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        TextView textView = (TextView) view.findViewById(R.id.id_groupName_textView);
+                        clickedGroup = textView.getText().toString();
+                        clickedGroupGroup = "GeneralInterests";
+                        startActivity(new Intent(HomeActivity.this, PostsActivity.class));
+                        Log.v("HomeActivity", "Viewholder clicked");
+                    }
+                });
+
+                return viewHolder;
+            }
+        };
+
+        generalListrecyclerView.setAdapter(FBRAGIG);
+
+        FirebaseRecyclerAdapter<GroupListRowModelClass, GroupNameListViewHolder> FBRAOIG = new FirebaseRecyclerAdapter<GroupListRowModelClass, GroupNameListViewHolder>(
+
+                GroupListRowModelClass.class,
+                R.layout.row_list_select_grp_layout,
+                GroupNameListViewHolder.class,
+                databaseReference2
+
+        ) {
+            @Override
+            protected void populateViewHolder(GroupNameListViewHolder viewHolder, GroupListRowModelClass model, int position) {
+
+                viewHolder.setGroupName(model.getGroupName());
+
+            }
+
+            @Override
+            public GroupNameListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                GroupNameListViewHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+
+                viewHolder.setOnClickListener(new GroupNameListViewHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        TextView textView = (TextView) view.findViewById(R.id.id_groupName_textView);
+                        clickedGroup = textView.getText().toString();
+                        clickedGroupGroup = "OtherGroups";
+                        startActivity(new Intent(HomeActivity.this, PostsActivity.class));
+                        finish();
+                    }
+                });
+
+                return viewHolder;
+            }
+        };
+
+        otherListrecyclerView.setAdapter(FBRAOIG);
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home_activity,menu);
+        getMenuInflater().inflate(R.menu.menu_home_activity, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -178,26 +186,27 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id=item.getItemId();
+        int id = item.getItemId();
 
-        if(id==R.id.id_logout_HomeActy){
+        if (id == R.id.id_logout_HomeActy) {
             firebaseAuth.signOut();
-            startActivity(new Intent(HomeActivity.this,MainActivity.class));
+            startActivity(new Intent(HomeActivity.this, MainActivity.class));
+            finish();
         }
 
-        if (id==R.id.id_addGroup_HomeActy){
-            AlertDialog.Builder builder=new AlertDialog.Builder(HomeActivity.this);
-            View view=getLayoutInflater().inflate(R.layout.add_group_layout,null);
+        if (id == R.id.id_addGroup_HomeActy) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            View view = getLayoutInflater().inflate(R.layout.add_group_layout, null);
             builder.setView(view);
-            final AlertDialog alertDialog=builder.create();
+            final AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-            final EditText editNewGroupName=(EditText)view.findViewById(R.id.id_editNewGroupName);
-            Button addGrp=(Button)view.findViewById(R.id.id_addNewGroupBtn);
+            final EditText editNewGroupName = (EditText) view.findViewById(R.id.id_editNewGroupName);
+            Button addGrp = (Button) view.findViewById(R.id.id_addNewGroupBtn);
             addGrp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("OtherGroupsList").push().child("groupName");
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("OtherGroupsList").push().child("groupName");
                     databaseReference.setValue(editNewGroupName.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -210,5 +219,15 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        DecisionActivity.decActy.finish();
+        if(MainActivity.mainActy!=null){
+            MainActivity.mainActy.finish();
+        }
+        finish();
     }
 }

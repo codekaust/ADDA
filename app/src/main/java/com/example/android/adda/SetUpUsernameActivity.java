@@ -1,5 +1,6 @@
 package com.example.android.adda;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,10 +29,18 @@ public class SetUpUsernameActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
+    public static Activity setUnameActy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_up_username);
+
+        setUnameActy=this;
+
+        if(Boarding.boardingacty!=null){
+            Boarding.boardingacty.finish();
+        }
 
         toolbar = (Toolbar) findViewById(R.id.id_toolbar_SetUpUsernameActivity);
         setSupportActionBar(toolbar);
@@ -53,8 +62,7 @@ public class SetUpUsernameActivity extends AppCompatActivity {
                 else{
                     String a ="#"+editUsername.getText().toString().trim();
                     setUsername(a,firebaseAuth.getCurrentUser().getUid().toString());
-                    startActivity(new Intent(SetUpUsernameActivity.this,HomeActivity.class));
-                    finish();
+                    startActivity(new Intent(SetUpUsernameActivity.this,DecisionActivity.class));
                 }
             }
         });

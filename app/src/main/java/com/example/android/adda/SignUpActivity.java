@@ -1,5 +1,6 @@
 package com.example.android.adda;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -32,11 +33,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
+    public static Activity signUpActy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        signUpActy=this;
 
         editEmail=(EditText)findViewById(R.id.id_editEmail_SignUpActivity);
         editPassword=(EditText)findViewById(R.id.id_editPassword_SignUpActivity);
@@ -94,7 +98,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                     progressDialog.dismiss();
 
                                     if(task.isSuccessful()){
-                                        startActivity(new Intent(SignUpActivity.this,SetUpUsernameActivity.class));
+                                        startActivity(new Intent(SignUpActivity.this,Boarding.class));
+                                        MainActivity.mainActy.finish();
                                         finish();
                                     }
                                     else{

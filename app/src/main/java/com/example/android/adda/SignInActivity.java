@@ -1,5 +1,6 @@
 package com.example.android.adda;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -28,10 +29,14 @@ public class SignInActivity extends AppCompatActivity  implements View.OnClickLi
 
     private FirebaseAuth firebaseAuth;
 
+    public static Activity signInacty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        signInacty=this;
 
         editEmail=(EditText)findViewById(R.id.id_editEmail_signInActivity);
         editPassword=(EditText)findViewById(R.id.id_editPassword_signInActivity);
@@ -74,7 +79,7 @@ public class SignInActivity extends AppCompatActivity  implements View.OnClickLi
                         if(task.isSuccessful()){
                             textView.setText("");
                             startActivity(new Intent(SignInActivity.this,DecisionActivity.class));
-                            finish();
+                            MainActivity.mainActy.finish();
                         }
                         else{
                             textView.setText("Couldn't Sign In.\nPlease try again.");

@@ -1,10 +1,12 @@
 package com.example.android.adda;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -15,16 +17,19 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DecisionActivity extends AppCompatActivity {
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-    DatabaseReference databaseReference;
-    FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
 
+    public static Activity decActy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_decision);
+
+        decActy=this;
 
         databaseReference= FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth=FirebaseAuth.getInstance();
@@ -46,10 +51,28 @@ public class DecisionActivity extends AppCompatActivity {
 
                     startActivity(new Intent(DecisionActivity.this,SetUpUsernameActivity.class));
                     progressDialog.dismiss();
+                    if(SignInActivity.signInacty!=null){
+                        SignInActivity.signInacty.finish();
+                    }
+                    if(SetUpUsernameActivity.setUnameActy!=null){
+                        SetUpUsernameActivity.setUnameActy.finish();
+                    }
+                    if(SignUpActivity.signUpActy!=null){
+                        SignUpActivity.signUpActy.finish();
+                    }
                 }
                 else {
                     startActivity(new Intent(DecisionActivity.this,HomeActivity.class));
                     progressDialog.dismiss();
+                    if(SignInActivity.signInacty!=null){
+                        SignInActivity.signInacty.finish();
+                    }
+                    if(SetUpUsernameActivity.setUnameActy!=null){
+                        SetUpUsernameActivity.setUnameActy.finish();
+                    }
+                    if(SignUpActivity.signUpActy!=null){
+                        SignUpActivity.signUpActy.finish();
+                    }
                 }
             }
 
