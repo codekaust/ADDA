@@ -181,13 +181,25 @@ public class PostsActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        newPostDatabaseRef.child("heading").setValue(editNewPostHeading.getText().toString());
-                        newPostDatabaseRef.child("postText").setValue(editNewPostText.getText().toString());
+                        newPostDatabaseRef.child("heading").setValue(editNewPostHeading.getText().toString().trim());
+                        newPostDatabaseRef.child("postText").setValue(editNewPostText.getText().toString().trim());
                         newPostDatabaseRef.child("userId").setValue(firebaseAuth.getCurrentUser().getUid().toString());
                         newPostDatabaseRef.child("postId").setValue(newPostDatabaseRef.getKey().toString());
                         newPostDatabaseRef.child("totalLikes").setValue("0");
                         newPostDatabaseRef.child("usersWhichLiked").child(firebaseAuth.getCurrentUser().getUid().toString()).setValue("false");
                         newPostDatabaseRef.child("totalComments").setValue("0");
+
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseAuth.getCurrentUser().getUid().toString()).child("Username").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                newPostDatabaseRef.child("userName").setValue(dataSnapshot.getValue().toString());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
                         progressDialog.dismiss();
                         dialog.dismiss();
@@ -402,12 +414,14 @@ public class PostsActivity extends AppCompatActivity {
 
                         int i = Integer.parseInt(totalLikes.getText().toString());
 
-                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i - 1))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        OnSuccessListener listener=new OnSuccessListener() {
                             @Override
-                            public void onSuccess(Void aVoid) {
+                            public void onSuccess(Object o) {
                                 likeButton.setEnabled(true);
                             }
-                        });
+                        };
+
+                        databaseReference.child(postId.getText().toString()).child("totalLikes").setValue(Integer.toString((i - 1))).addOnSuccessListener(listener);
                     }
                 });
 
